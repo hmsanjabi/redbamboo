@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#C1AF99">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Red Bamboo Restaurant</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Imports -->
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600&family=Instrument+Serif:ital@0;1&family=Liu+Jian+Mao+Cao&family=Noto+Sans:wght@300;400;500&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-red: #AF151D;
+            --brand-black: #020001;
+            --brand-beige: #C1AF99;
+            --hover-teal: #005463;
+            --page-bg: #C1AF99;
+            
+            /* Typography Scales */
+            --font-serif: 'Instrument Serif', serif;
+            --font-sans: 'Instrument Sans', sans-serif;
+            --font-body: 'Noto Sans', sans-serif;
+            --font-cursive: 'Liu Jian Mao Cao', cursive;
+        }
+
+        html {
+            background-color: var(--page-bg);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--page-bg);
+            color: var(--brand-black);
+            font-family: var(--font-body);
+            margin: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            /* Support for dynamic viewport heights on mobile */
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+        }
+
+        /* --- Global Typography --- */
+        .serif-italic {
+            font-family: var(--font-serif);
+            font-style: italic;
+        }
+
+        .serif-heading {
+            font-family: var(--font-serif);
+            font-style: normal;
+        }
+
+        .sans-ui {
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+        }
+
+        .chinese-calligraphy {
+            font-family: 'ZCOOL XiaoWei', serif;
+            color: var(--brand-red);
+        }
+
+        p, .content-text {
+            font-family: var(--font-body);
+            line-height: 1.8;
+            color: rgba(2, 0, 1, 0.85);
+            font-style: normal;
+        }
+
+        /* --- HERO BACKGROUND TRANSFORMATION --- */
+        #dynamic-header-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 40;
+            background-image: url('./background.jpg');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(to bottom, black 100%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 100%, transparent 100%);
+        }
+
+        #header-color-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: var(--brand-beige);
+            opacity: 0;
+        }
+
+        /* --- HERO LEAF ACCENT --- */
+        #hero-leaf {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40vw;
+            max-width: 600px;
+            z-index: 42;
+            pointer-events: none;
+            mix-blend-mode: darken;
+        }
+
+        @media (max-width: 1024px) {
+            #hero-leaf {
+                width: 55vw;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            #hero-leaf {
+                width: 85vw;
+            }
+        }
+
+        /* --- PLATE TRANSFORMATION --- */
+        #morphing-plate {
+            position: fixed;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vh;
+            height: 60vh;
+            z-index: 50;
+            pointer-events: none;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.25));
+        }
+        
+        @media (max-width: 1024px) {
+            #morphing-plate {
+                width: min(60vw, 36vh);
+                height: min(60vw, 36vh);
+            }
+        }
+
+        #morphing-plate img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* --- CHINESE CHARACTERS --- */
+        .hero-character {
+            position: fixed;
+            top: 45%;
+            font-size: clamp(4rem, 12vw, 10rem);
+            z-index: 48;
+            pointer-events: none;
+            transform: translateY(-50%);
+        }
+
+        #char-left { left: calc(50% - 42vh); }
+        #char-right { right: calc(50% - 42vh); }
+
+        @media (max-width: 1024px) {
+            #char-left { left: calc(50% - min(43vw, 28vh)); font-size: clamp(2.8rem, 13vw, 10rem); }
+            #char-right { right: calc(50% - min(43vw, 28vh)); font-size: clamp(2.8rem, 13vw, 10rem); }
+        }
+
+        /* --- HEADER CORNER GLOW --- */
+        #header-corner-glow {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 320px;
+            height: 220px;
+            background: radial-gradient(circle at top right, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 60%);
+            z-index: 59; 
+            pointer-events: none;
+        }
+
+        /* --- SCROLL INDICATOR --- */
+        #scroll-container {
+            position: fixed;
+            bottom: 40px;
+            right: 60px;
+            z-index: 55;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            pointer-events: none;
+            color: var(--brand-black);
+        }
+        
+        @media (max-width: 768px) {
+            #scroll-container { right: 20px; bottom: 20px; }
+        }
+
+        .scroll-text {
+            writing-mode: vertical-rl;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            font-size: 10px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            margin-bottom: 12px;
+            opacity: 0.8;
+        }
+
+        .mobile-scroll-label, .mobile-arrow { display: none; }
+
+        @media (max-width: 1024px) {
+            .desktop-scroll-label, .desktop-arrow {
+                display: none;
+            }
+            .mobile-scroll-label, .mobile-arrow {
+                display: block;
+            }
+            .scroll-arrow {
+                font-size: 56px; /* High visibility for touch */
+            }
+        }
+
+        .scroll-arrow {
+            font-size: 16px;
+            animation: scrollBounce 2.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); opacity: 0.4; }
+            50% { transform: translateY(10px); opacity: 1; }
+        }
+
+        /* --- NAVIGATION HOVER LOGIC --- */
+        .nav-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 25px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .english-text {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            font-weight: 600;
+            color: var(--brand-black);
+            position: relative;
+            z-index: 5; /* Base layer for text */
+            transition: color 0.3s ease;
+        }
+
+        .chinese-translation {
+            position: absolute;
+            top: 75%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-cursive);
+            color: var(--hover-teal);
+            font-size: 1.8rem;
+            white-space: nowrap;
+            display: none;
+            z-index: 6;
+            pointer-events: none;
+            mix-blend-mode: darken;
+        }
+
+        .nav-item:hover .chinese-translation { display: block; }
+        .nav-item:hover .english-text { color: var(--brand-red); }
+
+        /* --- MOBILE MENU OVERLAY --- */
+        #mobile-menu-overlay {
+            position: fixed;
+            top: 100px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            background: var(--brand-beige);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            border: 2px solid var(--brand-red);
+            border-top: none; /* Attaches to header */
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        #mobile-menu-overlay.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-nav-link {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 2px solid var(--brand-red);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent; /* Clean touch feedback */
+        }
+
+        .mobile-nav-link:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-menu-asset {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 15; /* Physically layered ON TOP of the text (z-index 5) */
+            mix-blend-mode: darken;
+        }
+
+        /* Permanent state for the JavaScript delay */
+        .mobile-nav-link.active-tap .english-text {
+            color: var(--brand-red);
+        }
+
+        .mobile-nav-link.active-tap .mobile-menu-asset {
+            opacity: 1; 
+            transform: translate(-50%, -50%) scale(1.02);
+        }
+
+        /* Desktop/Hover behavior (for tablets with trackpads) */
+        @media (hover: hover) {
+            .mobile-nav-link:hover .english-text { color: var(--brand-red); }
+            .mobile-nav-link:hover .mobile-menu-asset { opacity: 1; transform: translate(-50%, -50%) scale(1.02); }
+        }
+
+        /* Prevent scrolling when menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        /* --- COOKIE NOTICE --- */
+        #cookie-notice {
+            position: fixed;
+            bottom: 20px; 
+            left: 20px;   
+            z-index: 80;
+            background: #ffffff;
+            border: 1px solid var(--brand-black);
+            padding: 20px 25px;
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        @media (max-width: 400px) { #cookie-notice { width: calc(100% - 40px); } }
+
+        #cookie-notice:hover { opacity: 1; }
+
+        .cookie-text {
+            font-family: var(--font-body);
+            font-size: 11px;
+            line-height: 1.6;
+            color: var(--brand-black);
+        }
+
+        .cookie-actions { display: flex; gap: 10px; }
+
+        .cookie-btn {
+            flex: 1;
+            font-family: var(--font-sans);
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 10px 0;
+            cursor: pointer;
+        }
+
+        .btn-accept { background: var(--brand-red); color: #ffffff; border: 1px solid var(--brand-red); }
+        .btn-reject { background: transparent; color: var(--brand-black); border: 1px solid var(--brand-black); }
+
+        /* --- UI: HEADER TABLE --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 110; /* Above menu overlay */
+            height: 100px;
+            pointer-events: none;
+        }
+
+        #header-inner-table {
+            margin: 20px 20px 0 20px;
+            height: calc(100% - 20px);
+            display: flex;
+            align-items: stretch;
+            border: 2px solid transparent; 
+            transition: border-color 0.4s ease;
+            pointer-events: auto;
+            background-color: transparent;
+        }
+
+        /* When menu is active, ensure header matches the grid border */
+        #header-inner-table.menu-active {
+            border-color: var(--brand-red) !important;
+            background-color: var(--brand-beige);
+        }
+
+        /* Toggle visibility of specific mobile elements when menu is active */
+        #header-inner-table.menu-active #logo-mark-target-mobile { display: none !important; }
+        #header-inner-table.menu-active #header-logo-text-mobile-wrap { display: flex !important; }
+        
+        /* Layout Adjustments when Menu is Open on Mobile */
+        @media (max-width: 1024px) {
+            #header-inner-table.menu-active #header-slot-right { 
+                display: none !important; 
+            }
+            #header-inner-table.menu-active #header-slot-center { 
+                justify-content: center; 
+                padding-right: 0; /* Fully centered logotype area */
+                flex: 1; /* Expand to fill space */
+            }
+            #header-logo-text-mobile {
+                height: clamp(35px, 10vw, 55px) !important; /* Maximized responsive sizing */
+                max-width: 95%;
+                object-fit: contain;
+                margin: 0 auto;
+            }
+        }
+
+        #header-slot-left, #header-slot-center, #header-slot-right {
+            display: flex;
+            align-items: center;
+            pointer-events: auto;
+        }
+
+        #header-slot-left {
+            flex: 0 0 auto;
+            width: auto;
+            min-width: 100px;
+            padding: 0 20px;
+            border-right: 2px solid transparent;
+            transition: border-color 0.4s ease;
+        }
+
+        #header-slot-center {
+            flex: 1;
+            justify-content: center;
+        }
+
+        #header-slot-right {
+            flex: 0 0 auto;
+            width: auto;
+            min-width: 100px;
+            padding: 0 20px;
+            border-left: 2px solid transparent;
+            transition: border-color 0.4s ease;
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 1024px) {
+            #header-slot-left, #header-slot-right {
+                width: 80px;
+                min-width: 80px;
+                padding: 0;
+                justify-content: center;
+            }
+            #mobile-menu-btn {
+                padding: 0;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            #header-slot-left { min-width: 320px; padding: 0 30px; }
+            #header-slot-right { min-width: 320px; padding: 0 30px; }
+        }
+
+        #final-mark-desktop, #final-mark-mobile {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #header-logo-text, #header-logo-text-mobile {
+            height: 40px;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+        }
+
+        #header-logo-text {
+            margin-left: 15px;
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        #header-logo-text-mobile-wrap {
+            display: none;
+            height: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #status-indicator {
+            font-family: var(--font-sans);
+            font-size: 8px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 6px;
+            opacity: 0.6;
+            width: 100%;
+        }
+
+        .status-dot { 
+            display: inline-block;
+            width: 6px; 
+            height: 6px; 
+            border-radius: 50%; 
+            margin-right: 8px; 
+            position: relative; 
+        }
+        .status-dot.open { background-color: #2ECC71; }
+        .status-dot.closed { background-color: #E67E22; }
+        .status-dot.open::after {
+            content: ''; position: absolute; width: 100%; height: 100%; background-color: inherit; border-radius: 50%; animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(2.5); opacity: 0; } }
+
+        #phone-cta {
+            color: var(--brand-red);
+            font-family: var(--font-sans);
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(175, 21, 29, 0.3);
+            padding-bottom: 4px;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        #phone-cta:hover { border-bottom-color: var(--brand-red); transform: translateY(-1px); }
+        #phone-cta svg { width: 20px; height: 20px; fill: currentColor; margin-left: 10px; }
+
+        /* --- FIXED GLOBAL FRAME --- */
+        #fixed-page-frame {
+            position: fixed;
+            top: 100px; 
+            left: 20px;
+            right: 20px;
+            bottom: 0;
+            border-left: 2px solid transparent;
+            border-right: 2px solid transparent;
+            pointer-events: none;
+            z-index: 58; 
+            transition: border-color 0.4s ease, opacity 0.2s ease;
+        }
+
+        /* --- CONTENT WRAPPER --- */
+        #main-content-table {
+            margin: 0 20px 20px 20px; 
+            position: relative;
+            z-index: 20;
+            background: var(--brand-beige);
+            border: 2px solid transparent;
+            transition: border-color 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .grid-row {
+            display: flex;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.4s ease;
+            width: 100%;
+        }
+
+        .grid-row:last-child { border-bottom: none; }
+
+        .grid-cell {
+            padding: 120px 80px;
+            position: relative;
+            border-right: 2px solid transparent;
+            transition: border-color 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: var(--brand-beige);
+        }
+
+        .grid-cell:last-child { border-right: none; }
+
+        .asset-cell {
+            flex: none !important;
+            aspect-ratio: 1 / 1;
+            padding: 0 !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .asset-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .grid-svg {
+            max-width: 380px;
+            max-height: 380px;
+            width: 80%;
+            height: 80%;
+            mix-blend-mode: normal;
+            pointer-events: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .blueprint-label {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            color: var(--brand-red);
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .blueprint-label::before {
+            content: ''; width: 40px; height: 2px; background: currentColor; margin-right: 20px;
+        }
+
+        .cell-accent-char {
+            position: absolute;
+            top: 120px; 
+            right: 80px; 
+            font-family: 'ZCOOL XiaoWei', serif;
+            color: var(--brand-red);
+            font-size: 4.5rem; 
+            line-height: 1;
+            opacity: 1;
+            pointer-events: none;
+            user-select: none;
+            z-index: 1;
+        }
+
+        .fade-in-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 5;
+        }
+        .fade-in-content.visible { opacity: 1; transform: translateY(0); }
+
+        #hero-brand-container {
+            position: relative;
+            z-index: 45;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 8vh;
+            pointer-events: none;
+        }
+
+        @media (max-width: 1024px) {
+            #hero-brand-container {
+                padding-bottom: 30vh;
+            }
+        }
+
+        .brand-heading {
+            color: var(--brand-red);
+            font-size: clamp(4rem, 12vw, 9rem); 
+            line-height: 0.9;
+            font-family: var(--font-serif);
+            font-style: italic;
+        }
+
+        .brand-tagline {
+            color: var(--brand-black);
+            text-transform: uppercase;
+            letter-spacing: 0.6em;
+            font-size: clamp(0.7rem, 1.8vw, 1.2rem);
+            margin-top: 1.5rem;
+            font-family: var(--font-sans);
+            font-weight: bold;
+        }
+
+        /* --- INNOVATIVE FOOTER --- */
+        .footer-cell {
+            padding: 100px 60px !important;
+            background-color: var(--brand-beige);
+        }
+
+        .footer-cell h4 {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--brand-red);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-cell h4::before {
+            content: ''; width: 30px; height: 2px; background: currentColor; margin-right: 15px; opacity: 0.4;
+        }
+
+        .footer-cell p, .footer-cell a {
+            font-family: var(--font-body);
+            font-size: 14px;
+            margin-bottom: 8px;
+            opacity: 0.8;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .footer-cell a:hover {
+            opacity: 1;
+            color: var(--brand-red);
+        }
+
+        .hours-row {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 6px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-family: var(--font-body);
+        }
+
+        .hours-day { font-family: var(--font-sans); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+        .hours-time { opacity: 0.7; }
+
+        .copyright-cell {
+            padding: 30px 60px;
+            font-family: var(--font-sans);
+            font-size: 9px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            opacity: 0.5;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1.5fr;
+            align-items: center;
+            width: 100%;
+            transition: border-color 0.4s ease;
+        }
+
+        .copyright-seg { display: flex; align-items: center; }
+        .copyright-seg.center { justify-content: center; }
+        .copyright-seg.right { justify-content: flex-end; text-align: right; }
+
+        .seg-divider { width: 1px; height: 12px; background: currentColor; margin: 0 20px; opacity: 0.2; }
+
+        .footer-index-num {
+            font-family: var(--font-sans);
+            font-size: 9px;
+            font-weight: 800;
+            color: var(--brand-red);
+            margin-right: 10px;
+            opacity: 0.4;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-row { 
+                flex-direction: column; 
+                border-bottom: none !important; /* Row border removed to prevent collision with cell borders */
+            }
+            .grid-cell { 
+                border-right: none !important; 
+                border-bottom: 2px solid transparent; /* Individual cells provide the horizontal lines */
+                padding: 60px 40px !important; 
+                width: 100% !important; 
+            }
+            /* Remove bottom border from final footer cell to let copyright bar handle the division */
+            #footer .grid-cell:last-child {
+                border-bottom: none !important;
+            }
+            .asset-cell { aspect-ratio: auto; min-height: 350px; }
+            .grid-svg { max-width: 260px; }
+            .cell-accent-char { font-size: 2.5rem; top: 60px; right: 40px; }
+            .footer-cell { padding: 60px 40px !important; }
+            .copyright-cell { 
+                border-top: 2px solid transparent; /* Provides the single divider line above copyright */
+                grid-template-columns: 1fr; 
+                gap: 20px; 
+                text-align: center; 
+            }
+            .copyright-seg.center, .copyright-seg.right { justify-content: center; }
+            .seg-divider { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cookie Notice -->
+    <div id="cookie-notice">
+        <p class="cookie-text">To enhance your journey, we use cookies to understand how you interact with Red Bamboo.</p>
+        <div class="cookie-actions">
+            <button class="cookie-btn btn-reject" onclick="closeCookieNotice()">Reject</button>
+            <button class="cookie-btn btn-accept" onclick="closeCookieNotice()">Accept</button>
+        </div>
+    </div>
+
+    <!-- Transforming Background -->
+    <div id="dynamic-header-bg">
+        <div id="header-color-overlay"></div>
+    </div>
+
+    <!-- Hero Corner Accent -->
+    <img id="hero-leaf" src="./leaf.svg" alt="Bamboo Leaf Accent">
+
+    <!-- Calligraphy Characters -->
+    <div id="char-left" class="hero-character chinese-calligraphy">红</div>
+    <div id="char-right" class="hero-character chinese-calligraphy">竹</div>
+
+    <!-- Corner Highlight -->
+    <div id="header-corner-glow"></div>
+
+    <!-- UI: Scroll Guide -->
+    <div id="scroll-container">
+        <span class="scroll-text desktop-scroll-label">Scroll Down</span>
+        <span class="scroll-text mobile-scroll-label">Swipe Up</span>
+        <span class="scroll-arrow desktop-arrow">↓</span>
+        <span class="scroll-arrow mobile-arrow">↑</span>
+    </div>
+
+    <!-- Central Morphed Element -->
+    <div id="morphing-plate">
+        <img src="./plate.png" alt="Signature Dish">
+    </div>
+
+    <!-- Fixed Frame for bridge borders -->
+    <div id="fixed-page-frame"></div>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay">
+        <a href="/menu" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/menu')">
+            <img src="menuteapot.svg" alt="" class="mobile-menu-asset">
+            <span class="english-text">Our Menu</span>
+        </a>
+        <a href="/signature" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/signature')">
+            <img src="menudragon.svg" alt="" class="mobile-menu-asset">
+            <span class="english-text">Signature Items</span>
+        </a>
+        <a href="/story" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/story')">
+            <img src="menuhandfan.svg" alt="" class="mobile-menu-asset">
+            <span class="english-text">Our Story</span>
+        </a>
+        <a href="/find" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/find')">
+            <img src="menubuilding.svg" alt="" class="mobile-menu-asset">
+            <span class="english-text">Find Us</span>
+        </a>
+    </div>
+
+    <!-- Global Header -->
+    <header>
+        <div id="header-inner-table">
+            
+            <!-- SLOT 1: LEFT -->
+            <div id="header-slot-left">
+                <div id="mobile-menu-btn" class="lg:hidden cursor-pointer flex items-center justify-center w-full h-full" onclick="toggleMobileMenu()">
+                    <!-- Hamburger Icon -->
+                    <svg id="menu-icon-open" class="w-9 h-9 stroke-current text-[#AF151D]" style="filter: drop-shadow(0px 0px 4px var(--brand-beige))" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 7H20M4 12H20M4 17H20" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <!-- Close Icon (Fixed) -->
+                    <svg id="menu-icon-close" class="hidden w-9 h-9 text-[#AF151D]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </div>
+                <div id="desktop-logo-wrap" class="hidden lg:flex items-center h-full">
+                    <a href="/" id="logo-mark-target-desktop" class="w-[60px] h-[60px] relative pointer-events-none">
+                         <img id="final-mark-desktop" src="./logo.svg" alt="Mark" class="w-full h-full object-contain absolute inset-0">
+                    </a>
+                    <a href="/" id="header-logo-text-link" class="pointer-events-none block">
+                        <img id="header-logo-text" src="./text.svg" alt="Logotype">
+                    </a>
+                </div>
+            </div>
+
+            <!-- SLOT 2: CENTER -->
+            <div id="header-slot-center">
+                <!-- Mobile Logo Text (Shown when menu active) -->
+                <div id="header-logo-text-mobile-wrap" class="lg:hidden">
+                    <a href="/">
+                        <img id="header-logo-text-mobile" src="./text.svg" alt="Logotype">
+                    </a>
+                </div>
+                
+                <!-- Mobile Mark (Shown when menu inactive) -->
+                <a href="/" id="logo-mark-target-mobile" class="lg:hidden w-[45px] h-[45px] relative pointer-events-none">
+                    <img id="final-mark-mobile" src="./logo.svg" alt="Mark" class="w-full h-full object-contain absolute inset-0">
+                </a>
+                
+                <nav id="nav-section" class="hidden lg:flex">
+                    <a href="/menu" class="nav-item">
+                        <span class="english-text">Our Menu</span>
+                        <span class="chinese-translation">我们的菜单</span>
+                    </a>
+                    <a href="/signature" class="nav-item">
+                        <span class="english-text">Signature Items</span>
+                        <span class="chinese-translation">招牌菜</span>
+                    </a>
+                    <a href="/story" class="nav-item">
+                        <span class="english-text">Our Story</span>
+                        <span class="chinese-translation">我们的故事</span>
+                    </a>
+                    <a href="/find" class="nav-item">
+                        <span class="english-text">Find Us</span>
+                        <span class="chinese-translation">找到我们</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- SLOT 3: RIGHT -->
+            <div id="header-slot-right">
+                <!-- Mobile Slot Content with Phone & Status Indicator -->
+                <div id="mobile-right-wrap" class="lg:hidden flex items-center justify-center w-full h-full relative transition-opacity duration-300">
+                    <a href="tel:+1234567890" class="text-[#AF151D] flex items-center justify-center relative">
+                        <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <span id="status-dot-mobile" class="status-dot absolute -top-1 -right-1 !m-0"></span>
+                    </a>
+                </div>
+
+                <!-- Desktop Order Section -->
+                <div id="desktop-order-wrap" class="hidden lg:flex flex-col items-end">
+                    <div id="status-indicator">
+                        <span id="status-dot" class="status-dot"></span>
+                        <span id="status-text">Delivery: Checking...</span>
+                    </div>
+                    <a href="tel:+1234567890" id="phone-cta">
+                        <span class="phone-label">ORDER:&nbsp;</span>
+                        <span class="phone-number">0123 456 789</span>
+                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="hero-brand-container">
+            <div class="text-center">
+                <h1 class="brand-heading">Red Bamboo</h1>
+                <p class="brand-tagline">Chinese Restaurant</p>
+            </div>
+        </div>
+
+        <div id="main-content-table">
+            
+            <!-- ROW 1: STORY -->
+            <div id="story" class="grid-row">
+                <div class="grid-cell flex-1">
+                    <div class="cell-accent-char">传</div>
+                    <div class="fade-in-content">
+                        <span class="blueprint-label">Our Story</span>
+                        <h2 class="text-6xl md:text-7xl serif-heading mb-10 leading-[1.1]">London Heritage. <br>Oriental Authenticity.</h2>
+                        <p class="text-xl mb-8 leading-relaxed">
+                            Established for over a decade in the heart of London, Red Bamboo is a family-owned establishment born from a desire to share the genuine warmth of a traditional Chinese home. Our restaurant serves as a landmark of culinary consistency, where the history of our family meets the vibrant energy of the city.
+                        </p>
+                        <p class="text-xl">
+                            We take pride in our identity as a quintessential Oriental kitchen, remaining a steadfast sanctuary for those seeking honest, time-honored flavors in a welcoming environment.
+                        </p>
+                    </div>
+                </div>
+                <div class="grid-cell asset-cell lg:w-[35%]">
+                    <div class="asset-wrapper">
+                        <img src="teapot.svg" alt="Oriental Ritual" class="grid-svg">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROW 2: SIGNATURE - Reversed on mobile to show text first -->
+            <div id="signature" class="grid-row flex-col-reverse lg:flex-row">
+                <div class="grid-cell asset-cell lg:w-[35%]">
+                    <div class="asset-wrapper">
+                        <img src="dragon.svg" alt="Chinese Identity" class="grid-svg">
+                    </div>
+                </div>
+                <div class="grid-cell flex-1">
+                    <div class="cell-accent-char">匠</div>
+                    <div class="fade-in-content">
+                        <span class="blueprint-label">Food & Craft</span>
+                        <h2 class="text-6xl md:text-7xl serif-heading mb-10 leading-[1.1]">The Wok & <br>The Hearth.</h2>
+                        <p class="text-xl mb-12 leading-relaxed">
+                            Our menu is a living archive of traditional Chinese techniques. Every preparation is grounded in the integrity of the material and the mastery of the flame, delivering the ephemeral smoky complexity that defines Oriental culinary excellence.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 pt-12 border-t-2 border-black/10">
+                            <div>
+                                <h4 class="sans-ui text-[12px] font-bold mb-4 text-[#AF151D]">Warm Welcome</h4>
+                                <p class="text-base">Experience the genuine hospitality of a family restaurant where every guest is treated as an extension of our own home.</p>
+                            </div>
+                            <div>
+                                <h4 class="sans-ui text-[12px] font-bold mb-4 text-[#AF151D]">Takeaway Service</h4>
+                                <p class="text-base">Enjoy our high-quality Chinese cuisine at your own table with our dedicated takeaway service, prepared with the same rigor as our dine-in menu.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROW 3: MENU -->
+            <div id="menu" class="grid-row">
+                <div class="grid-cell flex-1">
+                    <div class="cell-accent-char">盛</div>
+                    <div class="fade-in-content">
+                        <span class="blueprint-label">Gatherings</span>
+                        <h2 class="text-6xl md:text-7xl serif-heading mb-12 leading-[1.1]">Moments of <br>Significance.</h2>
+                        <p class="text-xl mb-10 leading-relaxed">
+                            Red Bamboo provides a distinguished setting for gatherings that matter. Our restaurant is designed to foster communal joy, making it the perfect London location for birthdays, family reunions, and festive celebrations.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                            <div>
+                                <h4 class="sans-ui text-[11px] font-bold mb-5">Milestone Events</h4>
+                                <p class="text-base opacity-80">Whether it is a special birthday or a long-awaited family reunion, our space facilitates shared stories and memorable feasts.</p>
+                            </div>
+                            <div>
+                                <h4 class="sans-ui text-[11px] font-bold mb-5">Celebratory Feasts</h4>
+                                <p class="text-base opacity-80">Our large tables and communal dining style are perfectly tuned for group gatherings and festive moments.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid-cell asset-cell lg:w-[35%]">
+                    <div class="asset-wrapper">
+                        <img src="handfan.svg" alt="Atmospheric Detail" class="grid-svg">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ROW 4: FIND US - Reversed on mobile to show text first -->
+            <div id="find" class="grid-row flex-col-reverse lg:flex-row">
+                <div class="grid-cell asset-cell lg:w-[35%]">
+                    <div class="asset-wrapper">
+                        <img src="building.svg" alt="Our Location" class="grid-svg">
+                    </div>
+                </div>
+                <div class="grid-cell flex-1">
+                    <div class="cell-accent-char">预</div>
+                    <div class="fade-in-content">
+                        <span class="blueprint-label">Inquiries</span>
+                        <h2 class="text-6xl serif-heading mb-10">Secure Your Place.</h2>
+                        <p class="text-lg mb-12 leading-relaxed">
+                            To ensure the integrity of our service and the intimacy of our dining environment, we coordinate all reservations exclusively via telephone. Please call us directly for all inquiries regarding large party arrangements, celebratory events, or weekend availability.
+                        </p>
+                        <div class="flex flex-col md:flex-row md:items-center gap-16">
+                            <div>
+                                <span class="sans-ui text-[10px] opacity-40 block mb-3">Telephone Reservations</span>
+                                <a href="tel:+1234567890" class="text-4xl font-bold hover:text-[#AF151D] transition-colors border-b-2 border-[#AF151D]/20 pb-3">0123 456 789</a>
+                            </div>
+                            <div>
+                                <span class="sans-ui text-[10px] opacity-40 block mb-3">Email Inquiries</span>
+                                <a href="mailto:hello@redbamboo.co.uk" class="text-xl font-bold border-b-2 border-black/20 pb-1 hover:border-[#AF151D] transition-colors">hello@redbamboo.co.uk</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <footer class="grid-row" id="footer">
+                <!-- Col 1 -->
+                <div class="grid-cell lg:w-[35%] footer-cell">
+                    <h2 class="text-5xl serif-heading text-[#AF151D] mb-4">Red Bamboo</h2>
+                    <p class="sans-ui text-[10px] font-bold mb-8">Authentic Oriental Kitchen &bull; Est. 2012</p>
+                    <p class="max-w-[320px] text-sm opacity-60 leading-relaxed">
+                        A sanctuary of culinary consistency, defined by family tradition and the mastery of the flame.
+                    </p>
+                </div>
+
+                <!-- Col 2 -->
+                <div class="grid-cell flex-1 footer-cell">
+                    <h4><span class="footer-index-num">[01]</span>Coordinates</h4>
+                    <p class="text-lg font-bold mb-2">42 Bamboo Lane, Mayfair</p>
+                    <p class="text-lg mb-8">London, W1S 2YF, UK</p>
+                    <a href="mailto:hello@redbamboo.co.uk" class="text-sm font-bold opacity-60 hover:opacity-100 border-b border-black/10">hello@redbamboo.co.uk</a>
+                </div>
+
+                <!-- Col 3 -->
+                <div class="grid-cell flex-1 footer-cell">
+                    <h4><span class="footer-index-num">[02]</span>Timeline</h4>
+                    <div class="hours-row">
+                        <span class="hours-day">Tue – Thu</span>
+                        <span class="hours-time">18:00 – 22:30</span>
+                    </div>
+                    <div class="hours-row">
+                        <span class="hours-day">Fri – Sat</span>
+                        <span class="hours-time">17:30 – 23:00</span>
+                    </div>
+                    <div class="hours-row border-none">
+                        <span class="hours-day">Sunday</span>
+                        <span class="hours-time">17:30 – 21:30</span>
+                    </div>
+                </div>
+
+                <!-- Col 4 -->
+                <div class="grid-cell flex-1 footer-cell">
+                    <h4><span class="footer-index-num">[03]</span>Index</h4>
+                    <a href="/privacy">Privacy Protocol</a>
+                    <a href="/terms">Terms of Engagement</a>
+                    <a href="/allergens">Allergen Technical Sheet</a>
+                    <a href="/" class="mt-8 text-[9px] font-bold border-b border-black/20 inline-block uppercase tracking-[0.2em] hover:text-[#AF151D] transition-colors">Back to Origin &uarr;</a>
+                </div>
+            </footer>
+
+            <!-- Final Copyright Bar -->
+            <div class="copyright-cell" id="copyright-bar">
+                <div class="copyright-seg">
+                    <span class="font-bold text-[#AF151D] tracking-[0.5em]">RB/LND</span>
+                    <span class="seg-divider"></span>
+                    <span>&copy; 2024 RED BAMBOO RESTAURANT GROUP</span>
+                </div>
+                <div class="copyright-seg center">
+                    <span class="opacity-40">Architectural Integrity &bull; Oriental Craft</span>
+                </div>
+                <div class="copyright-seg right">
+                    <span>51.5098&deg; N, 0.1180&deg; W</span>
+                    <span class="seg-divider"></span>
+                    <span class="opacity-40">VER 2.0.4</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const plate = document.getElementById('morphing-plate');
+        const leaf = document.getElementById('hero-leaf');
+        const heroText = document.getElementById('hero-brand-container');
+        const coreHeader = document.querySelector('header');
+        const charLeft = document.getElementById('char-left');
+        const charRight = document.getElementById('char-right');
+        const scrollContainer = document.getElementById('scroll-container');
+        const headerGlow = document.getElementById('header-corner-glow');
+        const finalMarkDesktop = document.getElementById('final-mark-desktop');
+        const finalMarkMobile = document.getElementById('final-mark-mobile');
+        const headerLogoText = document.getElementById('header-logo-text');
+        const headerLogoTextLink = document.getElementById('header-logo-text-link');
+        const copyrightBar = document.getElementById('copyright-bar');
+        
+        const desktopTarget = document.getElementById('logo-mark-target-desktop');
+        const mobileTarget = document.getElementById('logo-mark-target-mobile');
+        
+        const headerBg = document.getElementById('dynamic-header-bg');
+        const colorOverlay = document.getElementById('header-color-overlay');
+        const headerTable = document.getElementById('header-inner-table');
+        const slotLeft = document.getElementById('header-slot-left');
+        const slotRight = document.getElementById('header-slot-right');
+        const fixedFrame = document.getElementById('fixed-page-frame');
+        const mainTable = document.getElementById('main-content-table');
+        const gridRows = document.querySelectorAll('.grid-row');
+        const gridCells = document.querySelectorAll('.grid-cell');
+        const fadeElements = document.querySelectorAll('.fade-in-content');
+
+        // Mobile Menu Elements
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        function toggleMobileMenu() {
+            const isActive = mobileMenuOverlay.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+            headerTable.classList.toggle('menu-active');
+            
+            if (isActive) {
+                menuIconOpen.classList.add('hidden');
+                menuIconClose.classList.remove('hidden');
+                // Ensure header border is visible
+                headerTable.style.borderColor = 'var(--brand-red)';
+                slotLeft.style.borderColor = 'var(--brand-red)';
+                slotRight.style.borderColor = 'var(--brand-red)';
+            } else {
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+                // Re-evaluate borders based on scroll if menu closed
+                handleScrollBorders();
+            }
+        }
+
+        function handleMobileNavLink(e, targetPath) {
+            e.preventDefault();
+            const link = e.currentTarget;
+            link.classList.add('active-tap');
+            setTimeout(() => {
+                window.location.href = targetPath;
+            }, 450);
+        }
+
+        function closeCookieNotice() { document.getElementById('cookie-notice').style.display = 'none'; }
+
+        function updateDeliveryStatus() {
+            const statusDot = document.getElementById('status-dot');
+            const statusDotMobile = document.getElementById('status-dot-mobile');
+            const statusText = document.getElementById('status-text');
+            
+            const londonTimeStr = new Date().toLocaleString("en-GB", { timeZone: "Europe/London", hour: 'numeric', minute: 'numeric', hour12: false });
+            const [hour, minute] = londonTimeStr.split(':').map(Number);
+            const currentTimeValue = hour * 100 + minute;
+            const isOpen = currentTimeValue >= 1800 && currentTimeValue <= 2130;
+            
+            const dotClass = isOpen ? 'status-dot open' : 'status-dot closed';
+            const textMsg = isOpen ? 'Delivery: Open Now' : 'Delivery: Closed';
+
+            if (statusDot) statusDot.className = dotClass;
+            if (statusDotMobile) statusDotMobile.className = dotClass + ' absolute -top-1 -right-1 !m-0';
+            if (statusText) statusText.innerText = textMsg;
+        }
+
+        function handleScrollBorders() {
+            if (mobileMenuOverlay.classList.contains('active')) return;
+
+            const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+            const vh = window.innerHeight;
+            const morphEnd = vh - 100;
+            let progress = Math.min(Math.max(scrollY / morphEnd, 0), 1);
+            const swapThreshold = 0.98;
+            
+            const borderColor = progress >= swapThreshold ? 'var(--brand-red)' : 'transparent';
+            headerTable.style.borderColor = borderColor;
+            slotLeft.style.borderColor = borderColor;
+            slotRight.style.borderColor = borderColor;
+            mainTable.style.borderColor = borderColor;
+            fixedFrame.style.borderColor = borderColor;
+            copyrightBar.style.borderColor = borderColor;
+            gridRows.forEach(row => row.style.borderColor = borderColor);
+            gridCells.forEach(cell => cell.style.borderColor = borderColor);
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+            const vh = window.innerHeight;
+            const vw = window.innerWidth;
+            const isMobile = vw <= 1024;
+            const morphEnd = vh - 100; 
+            let progress = Math.min(Math.max(scrollY / morphEnd, 0), 1);
+
+            const targetHeaderHeight = 100;
+            const currentH = vh - (vh - targetHeaderHeight) * progress;
+            headerBg.style.height = `${currentH}px`;
+            colorOverlay.style.opacity = progress;
+
+            const headerPercent = (targetHeaderHeight / currentH) * 100;
+            const vastStart = 100 - (progress * 85); 
+            const safeMaskStart = Math.max(headerPercent, vastStart);
+            
+            const maskCSS = `linear-gradient(to bottom, black 0%, black ${safeMaskStart}%, transparent 100%)`;
+            headerBg.style.webkitMaskImage = maskCSS;
+            headerBg.style.maskImage = maskCSS;
+
+            const textFadeProgress = Math.min(progress * 2, 1);
+            heroText.style.opacity = 1 - textFadeProgress;
+            heroText.style.transform = `translateY(${progress * -50}px)`;
+
+            leaf.style.opacity = Math.max(1 - (progress * 4), 0);
+            scrollContainer.style.opacity = Math.max(1 - (progress * 5), 0);
+            headerGlow.style.opacity = 1 - progress;
+
+            const charFadeOut = Math.max(1 - (progress * 2.5), 0);
+            charLeft.style.opacity = charFadeOut;
+            charRight.style.opacity = charFadeOut;
+            
+            const driftBase = isMobile ? 20 : 60;
+            const driftOut = progress * driftBase; 
+            charLeft.style.transform = `translateY(-50%) translateX(-${driftOut}px)`;
+            charRight.style.transform = `translateY(-50%) translateX(${driftOut}px)`;
+
+            const swapThreshold = 0.98;
+            const moveProgress = Math.min(progress / swapThreshold, 1);
+
+            const activeTarget = isMobile ? mobileTarget : desktopTarget;
+            const targetRect = activeTarget.getBoundingClientRect();
+            
+            const startX = vw / 2;
+            const startY = vh * 0.45;
+            const startSize = isMobile ? Math.min(vw * 0.60, vh * 0.36) : vh * 0.6;
+            
+            const endX = targetRect.left + (targetRect.width / 2);
+            const endY = targetRect.top + (targetRect.height / 2);
+            const endSize = targetRect.width;
+
+            if (progress === 0) {
+                plate.style.left = '50%';
+                plate.style.top = '45%';
+                plate.style.width = isMobile ? 'min(60vw, 36vh)' : '60vh';
+                plate.style.height = isMobile ? 'min(60vw, 36vh)' : '60vh';
+                plate.style.opacity = '1';
+                plate.style.filter = 'drop-shadow(0 20px 40px rgba(0,0,0,0.25))';
+            } else {
+                plate.style.left = `${startX + (endX - startX) * moveProgress}px`;
+                plate.style.top = `${startY + (endY - startY) * moveProgress}px`;
+                plate.style.width = `${startSize + (endSize - startSize) * moveProgress}px`;
+                plate.style.height = `${startSize + (endSize - startSize) * moveProgress}px`;
+                plate.style.filter = `drop-shadow(0 ${20 * (1-progress)}px ${40 * (1-progress)}px rgba(0,0,0,${0.25 * (1 - progress)}))`;
+            }
+
+            if (progress >= swapThreshold) {
+                plate.style.opacity = '0'; 
+                if(!isMobile) {
+                    finalMarkDesktop.style.opacity = '1';
+                    headerLogoText.style.opacity = '1'; 
+                    headerLogoText.style.transform = 'translateX(0)';
+                    desktopTarget.style.pointerEvents = 'auto';
+                    headerLogoTextLink.style.pointerEvents = 'auto';
+                } else {
+                    finalMarkMobile.style.opacity = '1';
+                    mobileTarget.style.pointerEvents = 'auto';
+                }
+            } else {
+                if (progress > 0) plate.style.opacity = '1'; 
+                finalMarkDesktop.style.opacity = '0';
+                finalMarkMobile.style.opacity = '0';
+                if(!isMobile) {
+                    headerLogoText.style.opacity = '0'; 
+                    headerLogoText.style.transform = 'translateX(-10px)';
+                    desktopTarget.style.pointerEvents = 'none';
+                    headerLogoTextLink.style.pointerEvents = 'none';
+                } else {
+                    mobileTarget.style.pointerEvents = 'none';
+                }
+            }
+
+            const borderColor = progress >= swapThreshold ? 'var(--brand-red)' : 'transparent';
+            headerTable.style.borderColor = borderColor;
+            slotLeft.style.borderColor = borderColor;
+            slotRight.style.borderColor = borderColor;
+            mainTable.style.borderColor = borderColor;
+            fixedFrame.style.borderColor = borderColor;
+            copyrightBar.style.borderColor = borderColor;
+            gridRows.forEach(row => row.style.borderColor = borderColor);
+            gridCells.forEach(cell => cell.style.borderColor = borderColor);
+
+            const scrollBottom = window.pageYOffset + vh;
+            const docHeight = document.documentElement.scrollHeight;
+            const distToBottom = docHeight - scrollBottom;
+
+            if (distToBottom < 22) { fixedFrame.style.opacity = '0'; } 
+            else { fixedFrame.style.opacity = '1'; }
+        });
+
+        const observer = new IntersectionObserver((entries) => { 
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); 
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+        updateDeliveryStatus();
+        setInterval(updateDeliveryStatus, 60000);
+    </script>
+</body>
+</html>
