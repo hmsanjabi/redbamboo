@@ -797,6 +797,6 @@
                 gap: 20px; 
                 text-align: center; 
             }
-            .copyright-seg.center, .copyright-seg.right { justify-content: center; }
+            .copyright-seg, .copyright-seg.center, .copyright-seg.right { justify-content: center; }
             .seg-divider { display: none; }
         }
