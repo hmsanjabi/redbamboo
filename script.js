@@ -1,4 +1,4 @@
-        const plate = document.getElementById('morphing-plate');
+const plate = document.getElementById('morphing-plate');
         const leaf = document.getElementById('hero-leaf');
         const heroText = document.getElementById('hero-brand-container');
         const coreHeader = document.querySelector('header');

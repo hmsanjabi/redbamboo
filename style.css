@@ -1,4 +1,4 @@
-        :root {
+:root {
             --brand-red: #AF151D;
             --brand-black: #020001;
             --brand-beige: #C1AF99;
@@ -234,7 +234,7 @@
             color: var(--brand-black);
             position: relative;
             z-index: 5; /* Base layer for text */
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, opacity 0.3s ease;
         }
 
         .chinese-translation {
@@ -255,22 +255,24 @@
         .nav-item:hover .chinese-translation { display: block; }
         .nav-item:hover .english-text { color: var(--brand-red); }
 
-        /* --- MOBILE MENU OVERLAY --- */
+        /* --- MOBILE MENU OVERLAY (Icon Based) --- */
         #mobile-menu-overlay {
             position: fixed;
             top: 100px;
             left: 20px;
             right: 20px;
-            bottom: 20px;
+            bottom: auto;
+            max-height: calc(100vh - 120px);
             background: var(--brand-beige);
             z-index: 100;
             display: none;
-            flex-direction: column;
+            flex-direction: column; 
             border: 2px solid var(--brand-red);
             border-top: none; /* Attaches to header */
             opacity: 0;
             transform: translateY(-10px);
             transition: opacity 0.3s ease, transform 0.3s ease;
+            overflow-y: auto; /* Added to support fixed height items on small screens */
         }
 
         #mobile-menu-overlay.active {
@@ -280,50 +282,81 @@
         }
 
         .mobile-nav-link {
-            flex: 1;
+            height: 80px; /* Matched to Header Visual Height (100px total - 20px top margin) */
+            flex: 0 0 auto;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 2px solid var(--brand-red);
             text-decoration: none;
             position: relative;
             overflow: hidden;
-            -webkit-tap-highlight-color: transparent; /* Clean touch feedback */
+            -webkit-tap-highlight-color: transparent;
+            border-bottom: 2px solid var(--brand-red);
         }
 
         .mobile-nav-link:last-child {
             border-bottom: none;
         }
 
-        .mobile-menu-asset {
+        /* Left Slot: 80px | Matches Header Close Button */
+        .mobile-nav-slot-left {
+            width: 80px;
+            min-width: 80px;
+            border-right: 2px solid var(--brand-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* The Menu Icon */
+        .nav-icon {
+            width: 28px;
+            height: 28px;
+            color: var(--brand-red);
+            opacity: 1; /* Full opacity per request */
+            transition: color 0.3s ease;
+        }
+
+        /* Main Slot: Flex | Matches Header Logo Area */
+        .mobile-nav-slot-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Mobile specific translation styling */
+        .chinese-mobile-translation {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 90%;
-            height: 90%;
-            object-fit: contain;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: var(--font-cursive);
+            color: var(--hover-teal);
+            font-size: 1.8rem; 
+            white-space: nowrap;
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease;
+            /* No mix-blend-mode to ensure it appears as a solid layer above */
             pointer-events: none;
-            z-index: 15; /* Physically layered ON TOP of the text (z-index 5) */
+            z-index: 20; /* High Z-Index to appear on top */
             mix-blend-mode: darken;
         }
 
-        /* Permanent state for the JavaScript delay */
-        .mobile-nav-link.active-tap .english-text {
+        /* Interaction States */
+        .mobile-nav-link:active, .mobile-nav-link.active-tap {
+            background-color: rgba(175, 21, 29, 0.03);
+        }
+
+        /* On Tap/Hover: Reveal Teal Translation, Fade English */
+        .mobile-nav-link.active-tap .english-text,
+        .mobile-nav-link:hover .english-text { 
             color: var(--brand-red);
         }
 
-        .mobile-nav-link.active-tap .mobile-menu-asset {
+        .mobile-nav-link.active-tap .chinese-mobile-translation,
+        .mobile-nav-link:hover .chinese-mobile-translation {
             opacity: 1; 
-            transform: translate(-50%, -50%) scale(1.02);
-        }
-
-        /* Desktop/Hover behavior (for tablets with trackpads) */
-        @media (hover: hover) {
-            .mobile-nav-link:hover .english-text { color: var(--brand-red); }
-            .mobile-nav-link:hover .mobile-menu-asset { opacity: 1; transform: translate(-50%, -50%) scale(1.02); }
         }
 
         /* Prevent scrolling when menu is open */
@@ -419,7 +452,7 @@
             }
             #header-logo-text-mobile {
                 height: clamp(35px, 10vw, 55px) !important; /* Maximized responsive sizing */
-                max-width: 95%;
+                max-width: 85%;
                 object-fit: contain;
                 margin: 0 auto;
             }

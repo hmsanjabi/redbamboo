@@ -62,22 +62,66 @@
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu-overlay">
+        
+        <!-- Row 1: Menu -->
         <a href="/menu" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/menu')">
-            <img src="menuteapot.svg" alt="" class="mobile-menu-asset">
-            <span class="english-text">Our Menu</span>
+            <!-- Left Slot (80px) - Icon -->
+            <div class="mobile-nav-slot-left">
+                <!-- Solid Cutlery Icon -->
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
+                </svg>
+            </div>
+            
+            <!-- Main Slot (Flex) - Content matching Logotype Grid -->
+            <div class="mobile-nav-slot-main">
+                <span class="english-text">Our Menu</span>
+                <span class="chinese-mobile-translation">我们的菜单</span>
+            </div>
         </a>
+
+        <!-- Row 2: Signature -->
         <a href="/signature" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/signature')">
-            <img src="menudragon.svg" alt="" class="mobile-menu-asset">
-            <span class="english-text">Signature Items</span>
+            <div class="mobile-nav-slot-left">
+                <!-- Solid Star Icon -->
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                </svg>
+            </div>
+            <div class="mobile-nav-slot-main">
+                <span class="english-text">Signature Items</span>
+                <span class="chinese-mobile-translation">招牌菜</span>
+            </div>
         </a>
+
+        <!-- Row 3: Story -->
         <a href="/story" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/story')">
-            <img src="menuhandfan.svg" alt="" class="mobile-menu-asset">
-            <span class="english-text">Our Story</span>
+            <div class="mobile-nav-slot-left">
+                <!-- Solid Book Icon -->
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/>
+                </svg>
+            </div>
+            <div class="mobile-nav-slot-main">
+                <span class="english-text">Our Story</span>
+                <span class="chinese-mobile-translation">我们的故事</span>
+            </div>
         </a>
+
+        <!-- Row 4: Find -->
         <a href="/find" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/find')">
-            <img src="menubuilding.svg" alt="" class="mobile-menu-asset">
-            <span class="english-text">Find Us</span>
+            <div class="mobile-nav-slot-left">
+                <!-- Solid Map Pin Icon -->
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                </svg>
+            </div>
+            <div class="mobile-nav-slot-main">
+                <span class="english-text">Find Us</span>
+                <span class="chinese-mobile-translation">找到我们</span>
+            </div>
         </a>
+
     </div>
 
     <!-- Global Header -->
