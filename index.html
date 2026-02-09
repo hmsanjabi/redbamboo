@@ -63,64 +63,56 @@
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu-overlay">
         
-        <!-- Row 1: Menu -->
-        <a href="/menu" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/menu')">
-            <!-- Left Slot (80px) - Icon -->
-            <div class="mobile-nav-slot-left">
-                <!-- Solid Cutlery Icon -->
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/>
-                </svg>
-            </div>
-            
-            <!-- Main Slot (Flex) - Content matching Logotype Grid -->
-            <div class="mobile-nav-slot-main">
-                <span class="english-text">Our Menu</span>
-                <span class="chinese-mobile-translation">我们的菜单</span>
-            </div>
-        </a>
+        <!-- Single Large Grid Container (Vertical Stack) -->
+        <div class="mobile-menu-grid">
+            <!-- Decorative Characters for the 4 Corners of the Container -->
+            <span class="nav-corner-char corner-tl">盛</span>
+            <span class="nav-corner-char corner-tr">匠</span>
+            <span class="nav-corner-char corner-bl">传</span>
+            <span class="nav-corner-char corner-br">预</span>
 
-        <!-- Row 2: Signature -->
-        <a href="/signature" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/signature')">
-            <div class="mobile-nav-slot-left">
-                <!-- Solid Star Icon -->
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                </svg>
-            </div>
-            <div class="mobile-nav-slot-main">
-                <span class="english-text">Signature Items</span>
-                <span class="chinese-mobile-translation">招牌菜</span>
-            </div>
-        </a>
+            <a href="/menu" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/menu')">
+                <div class="mobile-link-content">
+                    <span class="english-text">Our Menu</span>
+                    <span class="chinese-mobile-translation">盛</span>
+                </div>
+            </a>
 
-        <!-- Row 3: Story -->
-        <a href="/story" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/story')">
-            <div class="mobile-nav-slot-left">
-                <!-- Solid Book Icon -->
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/>
-                </svg>
-            </div>
-            <div class="mobile-nav-slot-main">
-                <span class="english-text">Our Story</span>
-                <span class="chinese-mobile-translation">我们的故事</span>
-            </div>
-        </a>
+            <a href="/signature" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/signature')">
+                <div class="mobile-link-content">
+                    <span class="english-text">Signature</span>
+                    <span class="chinese-mobile-translation">匠</span>
+                </div>
+            </a>
 
-        <!-- Row 4: Find -->
-        <a href="/find" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/find')">
-            <div class="mobile-nav-slot-left">
-                <!-- Solid Map Pin Icon -->
-                <svg class="nav-icon" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            <a href="/story" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/story')">
+                <div class="mobile-link-content">
+                    <span class="english-text">Our Story</span>
+                    <span class="chinese-mobile-translation">传</span>
+                </div>
+            </a>
+
+            <a href="/find" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/find')">
+                <div class="mobile-link-content">
+                    <span class="english-text">Find Us</span>
+                    <span class="chinese-mobile-translation">预</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Bottom Search Row -->
+        <div class="mobile-search-row">
+            <div class="search-input-slot">
+                <input type="text" placeholder="Search..." class="search-input">
+            </div>
+            <button class="search-icon-slot">
+                <!-- Search Icon (Updated to match header style) -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-            </div>
-            <div class="mobile-nav-slot-main">
-                <span class="english-text">Find Us</span>
-                <span class="chinese-mobile-translation">找到我们</span>
-            </div>
-        </a>
+            </button>
+        </div>
 
     </div>
 
@@ -168,19 +160,19 @@
                 <nav id="nav-section" class="hidden lg:flex">
                     <a href="/menu" class="nav-item">
                         <span class="english-text">Our Menu</span>
-                        <span class="chinese-translation">我们的菜单</span>
+                        <span class="chinese-translation">盛</span>
                     </a>
                     <a href="/signature" class="nav-item">
                         <span class="english-text">Signature Items</span>
-                        <span class="chinese-translation">招牌菜</span>
+                        <span class="chinese-translation">匠</span>
                     </a>
                     <a href="/story" class="nav-item">
                         <span class="english-text">Our Story</span>
-                        <span class="chinese-translation">我们的故事</span>
+                        <span class="chinese-translation">传</span>
                     </a>
                     <a href="/find" class="nav-item">
                         <span class="english-text">Find Us</span>
-                        <span class="chinese-translation">找到我们</span>
+                        <span class="chinese-translation">预</span>
                     </a>
                 </nav>
             </div>

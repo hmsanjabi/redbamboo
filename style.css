@@ -255,14 +255,14 @@
         .nav-item:hover .chinese-translation { display: block; }
         .nav-item:hover .english-text { color: var(--brand-red); }
 
-        /* --- MOBILE MENU OVERLAY (Icon Based) --- */
+        /* --- MOBILE MENU OVERLAY (2x2 Grid + Bottom Row) --- */
         #mobile-menu-overlay {
             position: fixed;
             top: 100px;
             left: 20px;
             right: 20px;
-            bottom: auto;
-            max-height: calc(100vh - 120px);
+            bottom: 20px; 
+            max-height: none; 
             background: var(--brand-beige);
             z-index: 100;
             display: none;
@@ -272,7 +272,7 @@
             opacity: 0;
             transform: translateY(-10px);
             transition: opacity 0.3s ease, transform 0.3s ease;
-            overflow-y: auto; /* Added to support fixed height items on small screens */
+            overflow-y: hidden;
         }
 
         #mobile-menu-overlay.active {
@@ -281,48 +281,63 @@
             transform: translateY(0);
         }
 
-        .mobile-nav-link {
-            height: 80px; /* Matched to Header Visual Height (100px total - 20px top margin) */
-            flex: 0 0 auto;
+        /* Single Grid Container (Vertical Stack) */
+        .mobile-menu-grid {
             display: flex;
+            flex-direction: column;
+            width: 100%;
+            flex: 1;
+            position: relative; /* For corner char positioning */
+            justify-content: center; /* Center items vertically closer together */
+            gap: 10px; /* Add explicit small gap instead of spreading them out */
+        }
+
+        .mobile-nav-link {
+            flex: 0 0 auto; /* Stop forcing equal height, let content dictate size */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
             position: relative;
             overflow: hidden;
             -webkit-tap-highlight-color: transparent;
-            border-bottom: 2px solid var(--brand-red);
+            border-bottom: none; /* Remove border between items */
+            padding: 15px 0; /* Add padding for touch target but keep them close */
+            height: auto; 
+            aspect-ratio: auto; 
         }
 
-        .mobile-nav-link:last-child {
-            border-bottom: none;
+        /* Remove border logic for 2x2 grid */
+        .mobile-nav-link:nth-child(odd) {
+            border-right: none;
         }
-
-        /* Left Slot: 80px | Matches Header Close Button */
-        .mobile-nav-slot-left {
-            width: 80px;
-            min-width: 80px;
-            border-right: 2px solid var(--brand-red);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* The Menu Icon */
-        .nav-icon {
-            width: 28px;
-            height: 28px;
+        
+        /* Decorative Corner Characters - Positioned on the main grid container now */
+        .nav-corner-char {
+            position: absolute;
+            font-family: 'ZCOOL XiaoWei', serif;
+            font-size: 3.5rem; /* Slightly larger for the main container */
             color: var(--brand-red);
-            opacity: 1; /* Full opacity per request */
-            transition: color 0.3s ease;
+            opacity: 1;
+            pointer-events: none;
+            z-index: 25;
         }
 
-        /* Main Slot: Flex | Matches Header Logo Area */
-        .mobile-nav-slot-main {
-            flex: 1;
+        .corner-tl { top: 15px; left: 20px; }
+        .corner-tr { top: 15px; right: 20px; }
+        .corner-bl { bottom: 15px; left: 20px; }
+        .corner-br { bottom: 15px; right: 20px; }
+
+        /* Mobile link internal content */
+        .mobile-link-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
+            z-index: 20;
         }
 
         /* Mobile specific translation styling */
@@ -332,30 +347,86 @@
             left: 50%;
             transform: translate(-50%, -50%);
             font-family: var(--font-cursive);
-            color: var(--hover-teal);
-            font-size: 1.8rem; 
+            color: var(--hover-teal); 
+            font-size: 1.8rem;
             white-space: nowrap;
             opacity: 0; /* Hidden by default */
             transition: opacity 0.3s ease;
-            /* No mix-blend-mode to ensure it appears as a solid layer above */
             pointer-events: none;
-            z-index: 20; /* High Z-Index to appear on top */
-            mix-blend-mode: darken;
+            z-index: 25; /* Higher than text */
+            mix-blend-mode: darken; /* Darken blend mode as requested */
         }
 
         /* Interaction States */
+        /* Removed background-color change on active/tap */
         .mobile-nav-link:active, .mobile-nav-link.active-tap {
+            background-color: transparent; 
         }
 
-        /* On Tap/Hover: Reveal Teal Translation, Fade English */
+        /* On Tap/Hover: English text stays full opacity */
         .mobile-nav-link.active-tap .english-text,
         .mobile-nav-link:hover .english-text { 
             color: var(--brand-red);
+            opacity: 1; 
         }
 
+        /* Just reveal opacity for translation */
         .mobile-nav-link.active-tap .chinese-mobile-translation,
         .mobile-nav-link:hover .chinese-mobile-translation {
             opacity: 1; 
+        }
+
+        /* --- SEARCH ROW (Bottom) --- */
+        .mobile-search-row {
+            display: flex;
+            height: 80px; 
+            width: 100%;
+            border-top: 2px solid var(--brand-red); /* Added border back */
+        }
+
+        .search-input-slot {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 2px solid var(--brand-red);
+            padding: 0 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--brand-black); /* Changed to brand black */
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--brand-red);
+            opacity: 1;
+        }
+
+        .search-icon-slot {
+            width: 80px; /* Fixed width matching header slots */
+            min-width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-red);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        /* Removed hover/active background change for search icon slot */
+        .search-icon-slot:active, .search-icon-slot:hover {
+            background-color: transparent;
         }
 
         /* Prevent scrolling when menu is open */
@@ -451,7 +522,7 @@
             }
             #header-logo-text-mobile {
                 height: clamp(35px, 10vw, 55px) !important; /* Maximized responsive sizing */
-                max-width: 85%;
+                max-width: 95%;
                 object-fit: contain;
                 margin: 0 auto;
             }
