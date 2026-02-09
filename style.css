@@ -304,7 +304,7 @@
             overflow: hidden;
             -webkit-tap-highlight-color: transparent;
             border-bottom: none; /* Remove border between items */
-            padding: 15px 0; /* Add padding for touch target but keep them close */
+            padding: 30px 0; /* Add padding for touch target but keep them close */
             height: auto; 
             aspect-ratio: auto; 
         }
