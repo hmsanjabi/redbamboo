@@ -345,7 +345,6 @@
 
         /* Interaction States */
         .mobile-nav-link:active, .mobile-nav-link.active-tap {
-            background-color: rgba(175, 21, 29, 0.03);
         }
 
         /* On Tap/Hover: Reveal Teal Translation, Fade English */
