@@ -406,6 +406,16 @@
             outline: none;
         }
 
+        /* MODIFIED: Explicitly remove focus outline and box-shadow 
+           to prevent blue selection box on mobile/tablet devices
+        */
+        .search-input:focus, .search-input:active {
+            outline: none !important;
+            box-shadow: none !important;
+            border: none !important;
+            --tw-ring-color: transparent !important;
+        }
+
         .search-input::placeholder {
             color: var(--brand-red);
             opacity: 1;
