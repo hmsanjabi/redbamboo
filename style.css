@@ -318,7 +318,7 @@
         .nav-corner-char {
             position: absolute;
             font-family: 'ZCOOL XiaoWei', serif;
-            font-size: 3.5rem; /* Slightly larger for the main container */
+            font-size: 2.625rem; /* Slightly larger for the main container */
             color: var(--brand-red);
             opacity: 1;
             pointer-events: none;
