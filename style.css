@@ -376,53 +376,57 @@
             opacity: 1; 
         }
 
-        /* --- SEARCH ROW (Bottom) --- */
-        .mobile-search-row {
+        /* --- SOCIAL ROW (Bottom) --- */
+        .mobile-social-row {
             display: flex;
             height: 80px; 
             width: 100%;
-            border-top: 2px solid var(--brand-red); /* Added border back */
+            border-top: 2px solid var(--brand-red); 
+            text-decoration: none;
         }
 
-        .search-input-slot {
+        .social-cta-slot {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             border-right: 2px solid var(--brand-red);
-            padding: 0 20px;
+            padding: 0 15px;
         }
 
-        .search-input {
+        .social-cta-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
             width: 100%;
-            height: 100%;
-            background: transparent;
-            border: none;
+            gap: 2px;
+        }
+
+        .follow-text {
             font-family: var(--font-sans);
-            font-size: 14px;
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--brand-black);
+            line-height: 1.4;
+        }
+
+        .handle-text {
+            font-family: var(--font-sans);
+            font-size: clamp(10px, 3.5vw, 14px);
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--brand-black); /* Changed to brand black */
-            outline: none;
-        }
-
-        /* MODIFIED: Explicitly remove focus outline and box-shadow 
-           to prevent blue selection box on mobile/tablet devices
-        */
-        .search-input:focus, .search-input:active {
-            outline: none !important;
-            box-shadow: none !important;
-            border: none !important;
-            --tw-ring-color: transparent !important;
-        }
-
-        .search-input::placeholder {
             color: var(--brand-red);
-            opacity: 1;
+            line-height: 1.4;
+            white-space: nowrap;
         }
 
-        .search-icon-slot {
-            width: 80px; /* Fixed width matching header slots */
+        .social-icon-slot {
+            width: 80px; 
             min-width: 80px;
             display: flex;
             align-items: center;
@@ -432,10 +436,10 @@
             border: none;
             cursor: pointer;
             padding: 0;
+            text-decoration: none;
         }
 
-        /* Removed hover/active background change for search icon slot */
-        .search-icon-slot:active, .search-icon-slot:hover {
+        .social-icon-slot:active, .social-icon-slot:hover {
             background-color: transparent;
         }
 
@@ -888,15 +892,14 @@
         @media (max-width: 1024px) {
             .grid-row { 
                 flex-direction: column; 
-                border-bottom: none !important; /* Row border removed to prevent collision with cell borders */
+                border-bottom: none !important; 
             }
             .grid-cell { 
                 border-right: none !important; 
-                border-bottom: 2px solid transparent; /* Individual cells provide the horizontal lines */
+                border-bottom: 2px solid transparent; 
                 padding: 60px 40px !important; 
                 width: 100% !important; 
             }
-            /* Remove bottom border from final footer cell to let copyright bar handle the division */
             #footer .grid-cell:last-child {
                 border-bottom: none !important;
             }
@@ -905,7 +908,7 @@
             .cell-accent-char { font-size: 2.5rem; top: 60px; right: 40px; }
             .footer-cell { padding: 60px 40px !important; }
             .copyright-cell { 
-                border-top: 2px solid transparent; /* Provides the single divider line above copyright */
+                border-top: 2px solid transparent; 
                 grid-template-columns: 1fr; 
                 gap: 20px; 
                 text-align: center; 

@@ -80,7 +80,7 @@
 
             <a href="/signature" class="mobile-nav-link" onclick="handleMobileNavLink(event, '/signature')">
                 <div class="mobile-link-content">
-                    <span class="english-text">Signature</span>
+                    <span class="english-text">Signature Items</span>
                     <span class="chinese-mobile-translation">匠</span>
                 </div>
             </a>
@@ -100,18 +100,22 @@
             </a>
         </div>
 
-        <!-- Bottom Search Row -->
-        <div class="mobile-search-row">
-            <div class="search-input-slot">
-                <input type="text" placeholder="Search..." class="search-input">
+        <!-- Bottom Social Row -->
+        <div class="mobile-social-row">
+            <div class="social-cta-slot">
+                <a href="https://instagram.com/redbamboorestaurant" target="_blank" class="social-cta-link">
+                    <span class="follow-text">FOLLOW US</span>
+                    <span class="handle-text">@REDBAMBOORESTAURANT</span>
+                </a>
             </div>
-            <button class="search-icon-slot">
-                <!-- Search Icon (Updated to match header style) -->
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="11" cy="11" r="7"></circle>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <a href="https://instagram.com/redbamboorestaurant" target="_blank" class="social-icon-slot">
+                <!-- Instagram Icon -->
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                 </svg>
-            </button>
+            </a>
         </div>
 
     </div>
@@ -127,7 +131,7 @@
                     <svg id="menu-icon-open" class="w-9 h-9 stroke-current text-[#AF151D]" style="filter: drop-shadow(0px 0px 4px var(--brand-beige))" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 7H20M4 12H20M4 17H20" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <!-- Close Icon (Fixed) -->
+                    <!-- Close Icon -->
                     <svg id="menu-icon-close" class="hidden w-9 h-9 text-[#AF151D]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -221,7 +225,7 @@
                         <span class="blueprint-label">Our Story</span>
                         <h2 class="text-6xl md:text-7xl serif-heading mb-10 leading-[1.1]">London Heritage. <br>Oriental Authenticity.</h2>
                         <p class="text-xl mb-8 leading-relaxed">
-                            Established for almost a decade in North London, Red Bamboo is a family-owned establishment born from a desire to share the genuine warmth of a traditional Chinese home. Our restaurant serves as a landmark of culinary consistency, where the history of our family meets the vibrant energy of the city.
+                            Established for more than a decade in North London, Red Bamboo is a family-owned establishment born from a desire to share the genuine warmth of a traditional Chinese home. Our restaurant serves as a landmark of culinary consistency, where the history of our family meets the vibrant energy of the city.
                         </p>
                         <p class="text-xl">
                             We take pride in our identity as a quintessential Oriental kitchen, remaining a steadfast sanctuary for those seeking honest, time-honored flavors in a welcoming environment.
@@ -235,7 +239,7 @@
                 </div>
             </div>
 
-            <!-- ROW 2: SIGNATURE - Reversed on mobile to show text first -->
+            <!-- ROW 2: SIGNATURE -->
             <div id="signature" class="grid-row flex-col-reverse lg:flex-row">
                 <div class="grid-cell asset-cell lg:w-[35%]">
                     <div class="asset-wrapper">
@@ -293,7 +297,7 @@
                 </div>
             </div>
 
-            <!-- ROW 4: FIND US - Reversed on mobile to show text first -->
+            <!-- ROW 4: FIND US -->
             <div id="find" class="grid-row flex-col-reverse lg:flex-row">
                 <div class="grid-cell asset-cell lg:w-[35%]">
                     <div class="asset-wrapper">
@@ -316,10 +320,6 @@
                                     <a href="tel:02083608998" class="text-4xl font-bold hover:text-[#AF151D] transition-colors border-b-2 border-[#AF151D]/20 pb-3">020 8360 8998</a>
                                 </div>
                             </div>
-                            <div style="display: none;">
-                                <span class="sans-ui text-[10px] opacity-40 block mb-3">Email Inquiries</span>
-                                <a href="mailto:hello@redbamboorestaurant.co.uk" class="text-xl font-bold border-b-2 border-black/20 pb-1 hover:border-[#AF151D] transition-colors">hello@redbamboorestaurant.co.uk</a>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -327,7 +327,6 @@
 
             <!-- FOOTER -->
             <footer class="grid-row" id="footer">
-                <!-- Col 1 -->
                 <div class="grid-cell lg:w-[35%] footer-cell">
                     <h2 class="text-5xl serif-heading text-[#AF151D] mb-4">Red Bamboo</h2>
                     <p class="sans-ui text-[10px] font-bold mb-8">Authentic Oriental Kitchen &bull; Est. 20**</p>
@@ -336,7 +335,6 @@
                     </p>
                 </div>
 
-                <!-- Col 2 -->
                 <div class="grid-cell flex-1 footer-cell">
                     <h4>Our Location</h4>
                     <p class="text-lg font-bold mb-2">879 Green Lanes, Winchmore Hill</p>
@@ -344,7 +342,6 @@
                     <a href="mailto:hello@redbamboorestaurant.co.uk" class="text-sm font-bold opacity-60 hover:opacity-100 border-b border-black/10">hello@redbamboorestaurant.co.uk</a>
                 </div>
 
-                <!-- Col 3 -->
                 <div class="grid-cell flex-1 footer-cell">
                     <h4>Opening Hours</h4>
                     <div class="hours-row">
@@ -365,7 +362,6 @@
                     </div>
                 </div>
 
-                <!-- Col 4 -->
                 <div class="grid-cell flex-1 footer-cell">
                     <h4>Compliance</h4>
                     <a href="/privacy">Privacy Protocol</a>
