@@ -343,7 +343,7 @@
         /* Mobile specific translation styling */
         .chinese-mobile-translation {
             position: absolute;
-            top: 50%;
+            top: 75%;
             left: 50%;
             transform: translate(-50%, -50%);
             font-family: var(--font-cursive);
@@ -351,7 +351,6 @@
             font-size: 1.8rem;
             white-space: nowrap;
             opacity: 0; /* Hidden by default */
-            transition: opacity 0.3s ease;
             pointer-events: none;
             z-index: 25; /* Higher than text */
             mix-blend-mode: darken; /* Darken blend mode as requested */
