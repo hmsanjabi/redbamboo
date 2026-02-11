@@ -418,7 +418,7 @@
             font-size: clamp(10px, 3.5vw, 14px);
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.2em;
             color: var(--brand-red);
             line-height: 1.4;
             white-space: nowrap;
