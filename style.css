@@ -901,8 +901,9 @@
             transition: border-color 0.4s ease;
         }
 
-        .copyright-cell.center { justify-content: center; }
-        .copyright-cell.right { justify-content: flex-end; text-align: right; }
+        .copyright-seg { display: flex; align-items: center; }
+        .copyright-seg.center { justify-content: center; }
+        .copyright-seg.right { justify-content: flex-end; text-align: right; }
 
         .seg-divider { width: 1px; height: 12px; background: currentColor; margin: 0 20px; opacity: 0.2; }
 
