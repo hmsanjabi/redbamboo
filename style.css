@@ -58,6 +58,34 @@
             font-style: normal;
         }
 
+        /* --- what3words Branding --- */
+        .w3w-container {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none !important;
+            padding: 4px 0;
+            transition: transform 0.2s ease;
+        }
+        .w3w-container:hover {
+            transform: translateX(4px);
+        }
+        .w3w-slash {
+            color: #E11F26; /* Official w3w Red */
+            font-family: var(--font-sans);
+            font-weight: 800;
+            font-size: 16px;
+            letter-spacing: -1px;
+            margin-right: 2px;
+        }
+        .w3w-address {
+            color: var(--brand-black);
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: none !important;
+            letter-spacing: 0.02em;
+        }
+
         /* --- HERO BACKGROUND TRANSFORMATION --- */
         #dynamic-header-bg {
             position: fixed;
@@ -873,9 +901,8 @@
             transition: border-color 0.4s ease;
         }
 
-        .copyright-seg { display: flex; align-items: center; }
-        .copyright-seg.center { justify-content: center; }
-        .copyright-seg.right { justify-content: flex-end; text-align: right; }
+        .copyright-cell.center { justify-content: center; }
+        .copyright-cell.right { justify-content: flex-end; text-align: right; }
 
         .seg-divider { width: 1px; height: 12px; background: currentColor; margin: 0 20px; opacity: 0.2; }
 
