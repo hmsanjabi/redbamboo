@@ -943,3 +943,64 @@
             .copyright-seg, .copyright-seg.center, .copyright-seg.right { justify-content: center; }
             .seg-divider { display: none; }
         }
+
+        /* --- RESPONSIVE FIXES FOR LOW-RES/LAPTOP DESKTOPS (1025px - 1500px) --- */
+        /* Fixes text overflow, scrollbars, and overlapping elements on smaller desktop screens */
+        @media (min-width: 1025px) and (max-width: 1500px) {
+            
+            /* 1. Header Constraints: Loosen fixed widths to prevent nav wrapping */
+            #header-slot-left, #header-slot-right {
+                min-width: 180px; /* Reduced from 320px */
+                padding: 0 15px;  /* Reduced from 30px */
+            }
+            
+            /* 2. Nav Items: Bring them closer */
+            .nav-item {
+                margin: 0 12px; /* Reduced from 25px */
+            }
+
+            /* 3. Grid Cells: Reduce massive padding that squeezes content */
+            .grid-cell {
+                padding: 70px 40px !important; /* Reduced from 120px 80px */
+            }
+
+            /* 4. Footer Cells: Match grid cell reduction */
+            .footer-cell {
+                padding: 50px 30px !important;
+            }
+
+            /* 5. Typography Scaling: Override Tailwind large text for this range */
+            .serif-heading {
+                font-size: 3.25rem !important; /* Scale down h2 */
+            }
+            
+            /* Target the specific Tailwind classes used in HTML if needed to be sure */
+            .text-6xl, .md\:text-7xl {
+                font-size: 3.25rem !important;
+            }
+            
+            .text-xl {
+                font-size: 1rem !important; /* Scale down body text slightly */
+            }
+
+            /* 6. Decoration: Move accent char to avoid overlap with text */
+            .cell-accent-char {
+                top: 60px;
+                right: 30px;
+                font-size: 3rem; /* Smaller char */
+            }
+
+            /* 7. Assets: Ensure images/SVGs don't force width */
+            .grid-svg {
+                max-width: 280px; /* Cap image size */
+            }
+            
+            /* 8. Hero Brand: Ensure it doesn't overflow vertically on short screens */
+            #hero-brand-container {
+                padding-bottom: 15vh; /* Adjust spacing */
+            }
+            
+            .brand-heading {
+                font-size: 5rem; /* Smaller hero title */
+            }
+        }
